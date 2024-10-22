@@ -61,9 +61,7 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       chromium
-      bspwm
-      sxhkd
-      polybar
+      kitty
     ];
   };
 
@@ -71,9 +69,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
-    nano
     wget
     sddm
+    bspwm
+    sxhkd
+    polybar
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -127,5 +127,6 @@
   hardware.nvidia = {
     nvidiaSettings = true;
   };
+  nixpkgs.config.allowUnfree = true;
 }
 
