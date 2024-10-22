@@ -1,0 +1,39 @@
+#Run terminal emulator
+super + Return
+	kitty
+#Restart sxhkd daemon
+super + Escape
+	pkill -USR1 -x sxhkd
+#Restart wm
+super + shift + r
+	bspc wm -r
+#Close app
+super + shift + c
+	bspc node -c
+#Show rofi for run apps
+super + r
+	rofi -show run
+### Select, move focus and apps
+# Selecting and focuses
+super + {a,s,w,d}
+	bspc node -f {west,south,north,east}
+
+# Send to the given desktop
+super + shift + {1-9,0}
+	bspc node -d focused:^{1-9,0}
+
+#Set the windows state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+#Set current workplace
+super + {1-9,0}
+	bspc {desktop -f} focused:^{1-9,10}
+
+#Move a floating window
+super + {Left,Down,Up,Right}
+        bspc node -v {-20 0,0 20,0 -20,20 0}
+
+#Move a floating window by x3
+super + shift + {Left,Down,Up,Right}
+	bspc node -v {-60 0,0 60,0 -60,60 0}
