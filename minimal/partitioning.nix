@@ -32,6 +32,16 @@
                       mountpoint = "/home";
                       mountOptions = ["noatime" "compress=zstd:1" "discard=async"];
                     };
+                    "@/dev" =
+                    {
+                      mountpoint = "/opt/dev";
+                      mountOptions = ["noatime" "compress=zstd:1" "discard=async"];
+                    };
+                    "@/games" =
+                    {
+                      mountpoint = "/opt/games";
+                      mountOptions = ["noatime" "compress=zstd:1" "discard=async"];
+                    };
                     "@/nix" =
                     {
                       mountpoint = "/nix";
