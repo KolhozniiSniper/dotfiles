@@ -13,6 +13,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   networking.hostName = "StevePC"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -52,12 +53,25 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.steve = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ];
+    shell = pkgs.fish;
     packages = with pkgs; [
       chromium
       kitty
-      polybar
+      polybarFull
       rofi
+      git
+      git-lfs
+      vscode
+      spotify
+      fastfetch
+      flameshot
+      telegram-desktop
+      obsidian
+      lazygit
+      proxychains
+      networkmanagerapplet
+      remmina
     ];
   };
 
@@ -66,7 +80,18 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    sddm
+    lightdm
+    pavucontrol
+    unzip
+    killall
+    pkg-config
+    networkmanager-l2tp
+    gnome.networkmanager-l2tp
+  ];
+
+  fonts.packages = with pkgs; [
+    jetbrains-mono
+    fira-code
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -78,13 +103,15 @@
   # };
 
 
+  services.xserver.displayManager.lightdm.enable = true;
   services.openssh.enable = true;
   services.xserver.enable = true;
   services.xserver.windowManager.bspwm.enable = true;
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.options = "eurosign:e,caps:escape";
 
-  
+  programs.fish.enable = true;
+  programs.steam.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -98,7 +125,9 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia.forceFullCompositionPipeline = true; # check
   hardware.nvidia = {
+    modesetting.enable = true;
     nvidiaSettings = true;
   };
   nixpkgs.config.allowUnfree = true;
