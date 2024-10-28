@@ -58,7 +58,7 @@
     packages = with pkgs; [
       chromium
       kitty
-      polybarFull
+      eww
       rofi
       git
       git-lfs
@@ -72,6 +72,10 @@
       proxychains
       networkmanagerapplet
       remmina
+      trayer
+      feh
+      playerctl
+      picom
     ];
   };
 
@@ -80,13 +84,15 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    lightdm
     pavucontrol
     unzip
     killall
     pkg-config
     networkmanager-l2tp
+    networkmanager-openvpn
     gnome.networkmanager-l2tp
+    gnome.networkmanager-openvpn
+    xdotool
   ];
 
   fonts.packages = with pkgs; [
@@ -107,8 +113,16 @@
   services.openssh.enable = true;
   services.xserver.enable = true;
   services.xserver.windowManager.bspwm.enable = true;
-  services.xserver.xkb.layout = "us";
-  services.xserver.xkb.options = "eurosign:e,caps:escape";
+  services.xserver.xkb.layout = "us,ru";
+  services.xserver.xkb.options = "grp:alt_shift_toggle";
+  services.xserver.displayManager.setupCommands = ''
+    UP='DVI-D-0'
+    CENTER='HDMI-1'
+    RIGHT='HDMI-0'
+    ${pkgs.xorg.xrandr}/bin/xrandr --output $CENTER --primary --output $UP --above $CENTER --output $RIGHT --right-of $CENTER
+  '';
+
+  virtualisation.vmware.host.enable = true;
 
   programs.fish.enable = true;
   programs.steam.enable = true;
@@ -125,7 +139,7 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia.forceFullCompositionPipeline = true; # check
+#  hardware.nvidia.forceFullCompositionPipeline = true; # check
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = true;
