@@ -5,15 +5,28 @@ pgreep -x sxhkd > /dev/null || sxhkd &
 bspc monitor DVI-D-0 -d 1 2 3 4 5
 bspc monitor HDMI-0 -d 1 2 3 4 5
 bspc monitor HDMI-1 -d 1 2 3 4 5 6 7 8 9 10
-bspc config border_width         2
+bspc config border_width         1
+bspc config -n focused border_width 3
 bspc config window_gap          12
 
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
-bspc config gapless_monocle      true
+bspc config gapless_monocle      false
 bspc config focus_follows_pointer true
+bspc config automatic_pseudo_tiling true
+bspc config layer 0
 
-# Some tweaks for system
+while killall trayer; do sleep 1; done
+while killall eww; do sleep 1; done
+while killall picom; do sleep 1; done
 
-### Set ru, us layout in kbdx
-setxkbmap -layout us,ru -option grp:alt_shift_toggle
+trayer --monitor 2 --edge top --widthtype request --align right --transparent 1 --alpha 255 --tint 0x000000 &
+picom &
+eww open center-bar &
+eww open center-workspaces &
+eww open up-bar &
+eww open up-workspaces &
+eww open right-bar &
+eww open right-workspaces &
+
+feh --bg-fill wallpapers/wallpaper.jpg &

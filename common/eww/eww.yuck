@@ -1,0 +1,135 @@
+(defpoll date-time :interval "1s" `date "+%H:%M:%S %d.%m.%y"`)
+(defpoll workspaces-center :interval "100ms" "scripts/get-workspaces.sh HDMI-1")
+(defpoll workspaces-up :interval "100ms" "scripts/get-workspaces.sh DVI-D-0")
+(defpoll workspaces-right :interval "100ms" "scripts/get-workspaces.sh HDMI-0")
+
+(defwidget workspaces-center []
+  (box :spacing 1
+       :orientation "h"
+       :halign "center"
+       :space-evenly "false"
+       (label  :text "${workspaces-center}"
+                  :class "workspaces-buttons")
+  )
+)
+
+(defwidget workspaces-up []
+  (box :spacing 0
+       :orientation "h"
+       :halign "center"
+       :space-evenly "false"
+       (label  :text "${workspaces-up}"
+               :class "workspaces-buttons")
+  )
+)
+
+(defwidget workspaces-right []
+  (box :spacing 2
+       :orientation "h"
+       :halign "center"
+       :space-evenly "false"
+       (label  :text "${workspaces-right}"
+                  :class "workspaces-buttons")
+  )
+)
+
+(defwidget date []
+  (box 
+      :spacing 1
+      :orientation "h"
+      :halign "center"
+      :space-evenly "false"
+      (label  :text date-time
+              :class "date"
+      )
+  )
+)
+
+
+(defwidget volume []
+  (box 
+      :spacing 1
+      :orientation "h"
+      :halign "center"
+      :space-evenly "false"
+      (eventbox
+      )
+  )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+(defwindow center-workspaces
+    :monitor 0
+    :geometry (geometry 
+              :x "5px"
+              :y "5px"
+              :width "8%"
+              :height "25px"
+              :anchor "top left"
+    )
+    :stacking "fg"
+    :reserve (struts :distance "30px" :side "top")
+    :windowtype "desktop"
+    :wm-ignore false
+    :exclusive true
+    (workspaces-center)
+)
+
+(defwindow up-workspaces
+  :monitor 1
+  :geometry (geometry 
+            :x "5px"
+            :y "5px"
+            :width "5%"
+            :height "8px"
+            :anchor "top left"
+  )
+  :stacking "fg"
+  :reserve (struts :distance "30px" :side "top")
+  :windowtype "desktop"
+  :wm-ignore false
+  :exclusive true
+  (workspaces-up)
+)
+
+(defwindow right-workspaces
+  :monitor 2
+  :geometry (geometry 
+            :x "5px"
+            :y "5px"
+            :width "5%"
+            :height "8px"
+            :anchor "top left"
+  )
+  :stacking "fg"
+  :reserve (struts :distance "30px" :side "top")
+  :windowtype "desktop"
+  :wm-ignore false
+  :exclusive true
+  (workspaces-right)
+)
+
+
+(defwindow center-bar
+  :monitor 0
+  :geometry (geometry :x "160px"
+                      :y "5px"
+                      :width "8%"
+                      :height "25px"
+                      :anchor "top left")
+  :stacking "fg"
+  :reserve (struts :distance "30px" :side "top")
+  :windowtype "desktop"
+  :wm-ignore false
+  (date)
+)

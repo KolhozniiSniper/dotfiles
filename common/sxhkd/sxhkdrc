@@ -13,6 +13,9 @@ super + shift + c
 #Show rofi for run apps
 super + r
 	rofi -show run
+super + l
+	dm-tool lock
+
 ### Select, move focus and apps
 # Selecting and focuses
 super + {a,s,w,d}
@@ -37,3 +40,21 @@ super + {Left,Down,Up,Right}
 #Move a floating window by x3
 super + shift + {Left,Down,Up,Right}
 	bspc node -v {-60 0,0 60,0 -60,60 0}
+
+### Music control
+#Next track
+super + shift + l
+	playerctl next
+
+#Prev track
+super + shift + h
+	playerctl previous
+
+#Play/Pause sound
+super + shift + j
+	playerctl play-pause
+	
+#Stop sound
+super + shift + k
+	playerctl stop
+	
